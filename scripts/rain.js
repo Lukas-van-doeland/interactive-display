@@ -12,7 +12,7 @@ let maxRaindrops = minParticles; // Initial number of particles
 const raindrops = [];
 const splashes = [];
 const umbrella = { x: 0, y: 0, radius: 50 }; // Cursor hitbox
-let wind = 0; // Wind angle effect
+let wind = 5; // Wind angle effect
 
 // Reusable gradient for raindrops (do not recreate every frame)
 const raindropGradient = ctx.createLinearGradient(0, 0, 0, 10);

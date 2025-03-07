@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "#c9a97c", // Medium dark sand
     "#b38b5d", // Darker sand
   ];
-  const maxParticles = Math.floor((canvas.width * canvas.height) / 10);
+  const maxParticles = 80000;
+  // const maxParticles = Math.floor((canvas.width * canvas.height) / 1);
 
   // Initialize variables
   let particles = [];
