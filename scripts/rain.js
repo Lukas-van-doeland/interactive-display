@@ -4,27 +4,30 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const minParticles = 5000;
-const maxParticles = 10000;
+const minParticles = 1000;
+const maxParticles = 5000;
 let t = 0; // Time variable
 let maxRaindrops = minParticles; // Initial number of particles
 
 const raindrops = [];
 const splashes = [];
 const umbrella = { x: 0, y: 0, radius: 50 }; // Cursor hitbox
-const wind = 0; // Wind angle effect
+let wind = 0; // Wind angle effect
 
 // Reusable gradient for raindrops (do not recreate every frame)
 const raindropGradient = ctx.createLinearGradient(0, 0, 0, 10);
 raindropGradient.addColorStop(0, "rgba(173, 216, 230, 1)"); // Light blue
 raindropGradient.addColorStop(1, "rgba(0, 0, 255, 1)"); // Deep blue
 
-// Function to update the number of raindrops dynamically
+// Function to update the number of raindrops dynamically and wind
 function updateParticles() {
     t += 0.01; // Controls speed of variation
     let range = maxParticles - minParticles;
     let oscillation = (1 + Math.sin(t)) / 2; // Normalized sine wave (0 to 1)
     maxRaindrops = Math.round(minParticles + range * oscillation);
+
+    // Control the wind strength using sine wave
+    wind = Math.sin(t) * 10; // Wind fluctuates between -5 and 5
 
     console.log(maxRaindrops); // Log for debugging, you can remove this if unnecessary
 
