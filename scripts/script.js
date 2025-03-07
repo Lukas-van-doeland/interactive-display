@@ -123,15 +123,22 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < steps; i++) {
       const ix = lastInteractionX + dx * i;
       const iy = lastInteractionY + dy * i;
-      const radius = 30;
+      const radius = 60;
 
       // Add a subtle glow effect at cursor position
       ctx.beginPath();
-      const gradient = ctx.createRadialGradient(ix, iy, 0, ix, iy, radius);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 0.3)");
+      const gradient = ctx.createRadialGradient(
+        ix,
+        iy,
+        0,
+        ix,
+        iy,
+        radius * 1.2
+      );
+      gradient.addColorStop(0, "rgba(255, 255, 255, 0.4)");
       gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
       ctx.fillStyle = gradient;
-      ctx.arc(ix, iy, radius, 0, Math.PI * 2);
+      ctx.arc(ix, iy, radius * 1.2, 0, Math.PI * 2);
       ctx.fill();
 
       const neighbors = getNeighbors(ix, iy);
@@ -150,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
           p.vy += pushY;
 
           // Temporarily brighten affected particles
-          p.bright = 1.0;
+          p.bright = 1.5;
         }
       }
     }
