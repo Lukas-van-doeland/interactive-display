@@ -3,9 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Display</title>
+    <title>Interactive Sand Animation</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <meta
+      name="description"
+      content="Interactive sand animation that responds to touch and cursor movements"
+    />
+    <meta name="theme-color" content="#000000" />
   </head>
   <body>
-    <h1>Interactive Display</h1>
+    <canvas id="sandCanvas"></canvas>
+    <script src="/scripts/script.js"></script>
+    <script>
+      // Add loaded class to body after content is loaded
+      window.addEventListener("load", function () {
+        document.body.classList.add("loaded");
+      });
+    </script>
   </body>
 </html>
