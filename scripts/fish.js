@@ -119,12 +119,31 @@ function updateFish() {
         fish.x += Math.cos(angleToCenter) * fish.speed;
         fish.y += Math.sin(angleToCenter) * fish.speed;
       } else {
-        // If within the radius, let it wander randomly inside the area
+        // Once the fish is near the center, let it wander randomly
         const randomAngle = Math.random() * Math.PI * 2; // Random angle for wandering
         fish.x += Math.cos(randomAngle) * fish.speed;
         fish.y += Math.sin(randomAngle) * fish.speed;
       }
     }
+
+    // Collision detection with other fish
+    fishArray.forEach(otherFish => {
+      if (fish !== otherFish) {
+        const dx = fish.x - otherFish.x;
+        const dy = fish.y - otherFish.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // If fish are too close, move them away from each other
+        if (distance < (fish.width / 2 + otherFish.width / 2)) {
+          const angle = Math.atan2(dy, dx);
+          fish.x += Math.cos(angle) * fish.speed;
+          fish.y += Math.sin(angle) * fish.speed;
+
+          otherFish.x -= Math.cos(angle) * otherFish.speed;
+          otherFish.y -= Math.sin(angle) * otherFish.speed;
+        }
+      }
+    });
 
     // Draw the fish
     drawFish(fish);
