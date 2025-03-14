@@ -61,10 +61,19 @@ class Fish {
     this.speed = Math.random() * 2 + 1;
     this.directionX = Math.random() * 2 - 1;
     this.directionY = Math.random() * 2 - 1;
-    const hue = Math.random() * 30 + 20; // Range from orange-red to gold
-    const saturation = Math.random() * 20 + 80;
-    const lightness = Math.random() * 20 + 50;
-    this.color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    this.isRainbow = Math.random() < 0.000005;
+    if (this.isRainbow) {
+      this.rainbowHue = 0;
+      this.scale = 1.2; // Rainbow fish are slightly larger
+      this.speed *= 1.5; // And faster
+      this.glowIntensity = 0;
+      this.glowDirection = 1;
+    } else {
+      const hue = Math.random() * 30 + 20; // Range from orange-red to gold
+      const saturation = Math.random() * 20 + 80;
+      const lightness = Math.random() * 20 + 50;
+      this.color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
     this.isFleeing = false;
     this.fleeEndTime = 0;
     this.minY = canvas.height - 50; // Keep fish above bottom of screen
@@ -204,8 +213,32 @@ class Fish {
     });
   }
 
+  updateRainbowEffect() {
+    if (!this.isRainbow) return;
+    
+    this.rainbowHue = (this.rainbowHue + 1) % 360;
+    this.glowIntensity += 0.05 * this.glowDirection;
+    
+    if (this.glowIntensity > 1) {
+      this.glowDirection = -1;
+    } else if (this.glowIntensity < 0) {
+      this.glowDirection = 1;
+    }
+    
+    this.color = `hsl(${this.rainbowHue}, 100%, 50%)`;
+  }
+
   draw() {
+    this.updateRainbowEffect();
+    
     ctx.save();
+    
+    // Add glow effect for rainbow fish
+    if (this.isRainbow) {
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 20 * this.glowIntensity;
+    }
+
     ctx.translate(this.x, this.y);
     ctx.scale(this.scale, this.scale); // Apply size variation
     
