@@ -61,7 +61,7 @@ class Fish {
     this.speed = Math.random() * 2 + 1;
     this.directionX = Math.random() * 2 - 1;
     this.directionY = Math.random() * 2 - 1;
-    this.isRainbow = Math.random() < 0.000005;
+    this.isRainbow = Math.random() < 0.0000005; // one in 2 million chance
     if (this.isRainbow) {
       this.rainbowHue = 0;
       this.scale = 1.2; // Rainbow fish are slightly larger
